@@ -9,9 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.ManyToAny;
-
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -23,6 +22,7 @@ public class Product {
 	private String name;
 	private Double price;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
