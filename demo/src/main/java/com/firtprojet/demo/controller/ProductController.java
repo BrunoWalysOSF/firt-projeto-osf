@@ -3,6 +3,7 @@ package com.firtprojet.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.firtprojet.demo.entity.Product;
@@ -20,7 +23,7 @@ import com.firtprojet.demo.repository.ProductRepository;
 
 @RestController
 @RequestMapping("/product")
-public class ProductControler {
+public class ProductController {
 
 	@Autowired
 	private ProductRepository productRepository;
@@ -38,6 +41,14 @@ public class ProductControler {
 				orElseThrow(()-> new ResourceNotFound("Product not found: "+productId));
 	}
 	
+	@GetMapping(value = "findByName")
+	@ResponseBody
+	public ResponseEntity<List<Product>> getProductByNome(@RequestParam(name="name") String productName) {
+		List<Product> productList = productRepository.findProductByName(productName.trim().toUpperCase());
+		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
+	}
+		
+		
 	@PostMapping("/{id}")
 	public Product createProduct(@RequestBody Product product, @PathVariable("id") long categoryId) {
 		product.setCategory(this.categoryRepository.findById(categoryId)

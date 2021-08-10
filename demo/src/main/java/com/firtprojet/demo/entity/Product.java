@@ -22,7 +22,6 @@ public class Product {
 	private String name;
 	private Double price;
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
@@ -31,12 +30,11 @@ public class Product {
 		
 	}
 	
-	public Product(String name, Double price, Category category) {
+	public Product(String name, Double price) {
 		super();
 		this.name = name;
 		this.price = price;
-		this.category = category;
-	}
+			}
 
 	public Long getId() {
 		return id;
