@@ -47,6 +47,13 @@ public class ProductController {
 		List<Product> productList = productRepository.findProductByName(productName.trim().toUpperCase());
 		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "findByCategory")
+	@ResponseBody
+	public ResponseEntity<List<Product>> getProductByCategory(@RequestParam(name="id") Long ctegoryId) {
+		List<Product> productList = productRepository.findProductByCategory(ctegoryId);
+		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
+	}
 		
 		
 	@PostMapping("/{id}")
