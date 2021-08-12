@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.firtprojet.demo.entity.Category;
 import com.firtprojet.demo.entity.Product;
 import com.firtprojet.demo.exception.ResourceNotFound;
 import com.firtprojet.demo.repository.CategoryRepository;
@@ -36,19 +37,29 @@ public class ProductController {
 	}
 
 	@GetMapping("/{id}")
-	public Product getProductById(@PathVariable("id") long productId) {
+	public Product findProductById(@PathVariable("id") long productId) {
 		return this.productRepository.findById(productId).
 				orElseThrow(()-> new ResourceNotFound("Product not found: "+productId));
 	}
 	
-	@GetMapping(value = "findByName")
+	@GetMapping(value = "findProductByName")
 	@ResponseBody
 	public ResponseEntity<List<Product>> getProductByNome(@RequestParam(name="name") String productName) {
 		List<Product> productList = productRepository.findProductByName(productName.trim().toUpperCase());
 		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "findByCategory")
+	@GetMapping(value = "findByCategoryName")
+	@ResponseBody
+	public ResponseEntity<List<Product>> findProductByCategoryName(@RequestParam(name="name") String categoryName){
+		List<Category> categoryList = categoryRepository.findCategoryByName(categoryName);
+		Category categoryFirtPos = categoryList.get(0);
+		List<Product> productList = productRepository.findProductByCategory(categoryFirtPos.getId());
+		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
+		
+	}	
+	
+	@GetMapping(value = "findByCategoryId")
 	@ResponseBody
 	public ResponseEntity<List<Product>> getProductByCategory(@RequestParam(name="id") Long ctegoryId) {
 		List<Product> productList = productRepository.findProductByCategory(ctegoryId);
