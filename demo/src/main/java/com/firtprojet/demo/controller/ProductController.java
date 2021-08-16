@@ -1,6 +1,7 @@
 package com.firtprojet.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,9 +38,10 @@ public class ProductController {
 	}
 
 	@GetMapping("/{id}")
-	public Product findProductById(@PathVariable("id") long productId) {
-		return this.productRepository.findById(productId).
+	public ResponseEntity<Product> findProductById(@PathVariable("id") long productId) {
+		Product produto = this.productRepository.findById(productId).
 				orElseThrow(()-> new ResourceNotFound("Product not found: "+productId));
+		return ResponseEntity.ok(produto);
 	}
 	
 	@GetMapping(value = "findProductByName")
@@ -49,14 +51,15 @@ public class ProductController {
 		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "findByCategoryName")
+	@GetMapping("/findProductByCategoryName")
 	@ResponseBody
 	public ResponseEntity<List<Product>> findProductByCategoryName(@RequestParam(name="name") String categoryName){
+		Category categoryFirtPos;
 		List<Category> categoryList = categoryRepository.findCategoryByName(categoryName);
-		Category categoryFirtPos = categoryList.get(0);
+		categoryFirtPos = categoryList.get(0);
 		List<Product> productList = productRepository.findProductByCategory(categoryFirtPos.getId());
 		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
-		
+
 	}	
 	
 	@GetMapping(value = "findByCategoryId")
