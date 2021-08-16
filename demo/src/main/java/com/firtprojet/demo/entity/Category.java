@@ -28,7 +28,11 @@ public class Category {
 
 	public Category() {
 	}
-	
+	public Category(Long id ,String name){
+		super();
+		this.id = id;
+		this.name = name;
+	}
 	public Category(String name) {
 		super();
 		this.name = name;

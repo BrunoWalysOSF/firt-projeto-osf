@@ -59,7 +59,6 @@ public class ProductController {
 		categoryFirtPos = categoryList.get(0);
 		List<Product> productList = productRepository.findProductByCategory(categoryFirtPos.getId());
 		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
-
 	}	
 	
 	@GetMapping(value = "findByCategoryId")
