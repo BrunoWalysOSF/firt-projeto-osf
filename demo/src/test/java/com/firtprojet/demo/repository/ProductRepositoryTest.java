@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,8 +25,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
+@SpringBootTest
+@RunWith(SpringRunner.class)
 public class ProductRepositoryTest {
 
     @Autowired
@@ -34,11 +35,11 @@ public class ProductRepositoryTest {
     @Test
     public void save_ProductPersist_WhenSucessful(){
         assertThat(this.productRepository).isNotNull();
-//        Product product = new Product(12L,"Microondas",200.0);
-//        Product productSave = this.productRepository.save(product);
-//        assertThat(productSave).isNotNull();
-//        assertThat(productSave.getId()).isNotNull();
-//        assertThat(productSave.getName()).isEqualTo(product.getName());
+        Product product = new Product(12L,"Microondas",200.0);
+        Product productSave = this.productRepository.save(product);
+        assertThat(productSave).isNotNull();
+        assertThat(productSave.getId()).isNotNull();
+        assertThat(productSave.getName()).isEqualTo(product.getName());
     }
 
 }
