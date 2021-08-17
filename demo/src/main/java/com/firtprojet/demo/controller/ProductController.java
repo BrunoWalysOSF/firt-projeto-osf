@@ -54,10 +54,15 @@ public class ProductController {
 	@GetMapping("/findProductByCategoryName")
 	@ResponseBody
 	public ResponseEntity<List<Product>> findProductByCategoryName(@RequestParam(name="name") String categoryName){
-		Category categoryFirtPos;
+		Category categoryFirtPos =  null;
+		List<Product> productList = null;
 		List<Category> categoryList = categoryRepository.findCategoryByName(categoryName);
+		if (categoryList.size()==0)
+			return new ResponseEntity<List<Product>>(productList,HttpStatus.NOT_FOUND);
 		categoryFirtPos = categoryList.get(0);
-		List<Product> productList = productRepository.findProductByCategory(categoryFirtPos.getId());
+		productList = productRepository.findProductByCategory(categoryFirtPos.getId());
+		if (productList==null)
+			return new ResponseEntity<List<Product>>(productList,HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
 	}	
 	

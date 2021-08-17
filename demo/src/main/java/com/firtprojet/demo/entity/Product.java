@@ -29,7 +29,12 @@ public class Product {
 	public Product() {
 		
 	}
-	
+	public Product(String name, Double price) {
+		super();
+		this.name = name;
+		this.price = price;
+	}
+
 	public Product(Long id ,String name, Double price) {
 		super();
 		this.id = id;
