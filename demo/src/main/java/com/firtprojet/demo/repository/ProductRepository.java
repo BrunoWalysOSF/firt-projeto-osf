@@ -13,7 +13,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 	
 	@Query(value = "select pro from Product pro where upper(trim(pro.name)) like %?1%")
 	List<Product> findProductByName(String name);
-	
+
 	@Query(value = "select * from Product where category_id = ?1", nativeQuery = true)
 	List<Product> findProductByCategory(Long categoryId);
 }
