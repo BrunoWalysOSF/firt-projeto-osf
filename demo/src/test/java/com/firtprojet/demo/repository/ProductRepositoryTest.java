@@ -1,5 +1,6 @@
 package com.firtprojet.demo.repository;
 
+import com.firtprojet.demo.entity.Category;
 import com.firtprojet.demo.entity.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,5 +63,20 @@ public class ProductRepositoryTest {
     public void findByName_ReturnProductListEmpty_WhenProductisNotFound(){
          List<Product> productByName = this.productRepository.findProductByName("sass");
          assertThat(productByName).isEmpty();
+    }
+    @Test
+    public void findBynameCategory_ReturnProductListByNameCategory_WhenSucessuful(){
+        Product produto = new Product(12L,"Microondas",200.0);
+        Category categoria = new Category(5L,"Eletronic");
+        produto.setCategory(categoria);
+        Product productSave = this.productRepository.save(produto);
+        List<Product> productByCategory = this.productRepository.findProductByCategory(5L);
+        assertThat(productByCategory).isNotEmpty();
+        assertThat(productByCategory).contains(productSave);
+    }
+    @Test
+    public void findBynameCategory_ReturnProductListEmptyByNameCategory_WhenNotFoundCategory(){
+        List<Product> productByCategory = this.productRepository.findProductByCategory(1L);
+        assertThat(productByCategory).isEmpty();
     }
 }
