@@ -16,9 +16,7 @@ public class FirtProjetOsfApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FirtProjetOsfApplication.class, args);
-		
-	
-		
+
 	}
 
 }

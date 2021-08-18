@@ -61,7 +61,7 @@ public class ProductController {
 			return new ResponseEntity<List<Product>>(productList,HttpStatus.NOT_FOUND);
 		categoryFirtPos = categoryList.get(0);
 		productList = productRepository.findProductByCategory(categoryFirtPos.getId());
-		if (productList==null)
+		if (productList.isEmpty())
 			return new ResponseEntity<List<Product>>(productList,HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
 	}	
@@ -72,8 +72,7 @@ public class ProductController {
 		List<Product> productList = productRepository.findProductByCategory(ctegoryId);
 		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
 	}
-		
-		
+
 	@PostMapping("/{id}")
 	public Product createProduct(@RequestBody Product product, @PathVariable("id") long categoryId) {
 		product.setCategory(this.categoryRepository.findById(categoryId)
