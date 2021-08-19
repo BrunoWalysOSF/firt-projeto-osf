@@ -44,7 +44,7 @@ public class ProductController {
 		return ResponseEntity.ok(produto);
 	}
 	
-	@GetMapping(value = "findProductByName")
+	@GetMapping("/findProductByName")
 	@ResponseBody
 	public ResponseEntity<List<Product>> getProductByNome(@RequestParam(name="name") String productName) {
 		List<Product> productList = productRepository.findProductByName(productName.trim().toUpperCase());
@@ -61,7 +61,7 @@ public class ProductController {
 			return new ResponseEntity<List<Product>>(productList,HttpStatus.NOT_FOUND);
 		categoryFirtPos = categoryList.get(0);
 		productList = productRepository.findProductByCategory(categoryFirtPos.getId());
-		if (productList.isEmpty())
+		if (productList==null)
 			return new ResponseEntity<List<Product>>(productList,HttpStatus.NOT_FOUND);
 		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
 	}	

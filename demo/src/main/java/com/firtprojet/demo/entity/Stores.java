@@ -1,10 +1,14 @@
 package com.firtprojet.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Stores {
 
@@ -33,4 +37,5 @@ public class Stores {
     @JsonBackReference
     @OneToMany(mappedBy = "stores")
     private List<Orders> orders;
+
 }

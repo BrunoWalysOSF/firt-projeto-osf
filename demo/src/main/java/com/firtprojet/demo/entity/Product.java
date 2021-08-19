@@ -1,14 +1,16 @@
 package com.firtprojet.demo.entity;
 
-import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Product {
 	
@@ -33,9 +35,6 @@ public class Product {
 	@OneToMany(mappedBy = "product")
 	private List<OrderItems> orderItems;
 
-	public Product() {
-		
-	}
 	public Product(String name, Double price) {
 		super();
 		this.name = name;
@@ -48,55 +47,4 @@ public class Product {
 		this.name = name;
 		this.price = price;
 			}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Product other = (Product) obj;
-		return Objects.equals(id, other.id);
-	}
-	
-	
 }

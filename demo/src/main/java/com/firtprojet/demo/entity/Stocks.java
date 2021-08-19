@@ -1,8 +1,14 @@
 package com.firtprojet.demo.entity;
 
-import javax.persistence.*;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Stocks {
 
