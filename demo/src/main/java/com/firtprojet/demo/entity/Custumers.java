@@ -9,9 +9,9 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Custumers {
 
     @Id
@@ -42,4 +42,5 @@ public class Custumers {
         this.zipCode = zipCode;
         this.orders = orders;
     }
+
 }

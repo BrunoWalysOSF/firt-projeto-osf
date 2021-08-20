@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Product {
 	
@@ -41,10 +39,24 @@ public class Product {
 		this.price = price;
 	}
 
-	public Product(Long id ,String name, Double price) {
+	public Product(Long id, String name, Double price,
+				   Category category, Brands brands, List<Stocks> stocks, List<OrderItems> orderItems) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.category = category;
+		this.brands = brands;
+		this.stocks = stocks;
+		this.orderItems = orderItems;
+	}
+
+	public Product(Long id , String name, Double price) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
 			}
+
+	public Product() {
+	}
 }

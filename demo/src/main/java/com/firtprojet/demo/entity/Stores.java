@@ -7,8 +7,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Stores {
 
@@ -37,5 +35,23 @@ public class Stores {
     @JsonBackReference
     @OneToMany(mappedBy = "stores")
     private List<Orders> orders;
+
+    public Stores() {
+    }
+
+    public Stores(Long id, String storeName, String phone, String email, String street, String city, String state,
+                  String zipCode, List<Stocks> stocks, List<Staffs> staffs, List<Orders> orders) {
+        this.id = id;
+        this.storeName = storeName;
+        this.phone = phone;
+        this.email = email;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.stocks = stocks;
+        this.staffs = staffs;
+        this.orders = orders;
+    }
 
 }

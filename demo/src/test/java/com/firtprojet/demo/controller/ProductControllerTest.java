@@ -61,13 +61,14 @@ public class ProductControllerTest {
 	}
 	
 	@Test
-	public void deveRetornaProduto_QuandoBuscarProductPorId() throws Exception {
+	public void deveRetornaSucessol_QuandoBuscarProductPorId() throws Exception {
 		Product produto = new Product(12L,"Microondas",200.0);
 		Category categoria = new Category(5L,"Eletronic");
 		produto.setCategory(categoria);
 		mockMvc.perform(get("/product/{id}",12L)
 				.contentType("application/jason"))
 				.andExpect(status().isOk());
+
 		ResponseEntity<Product> produto2 = productController.findProductById(12L);
 
 		assertThat(produto2.getBody().getId()).isEqualTo(produto.getId());

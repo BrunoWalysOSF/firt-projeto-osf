@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Staffs {
     @Id
@@ -44,4 +42,22 @@ public class Staffs {
         this.email = email;
         this.phone = phone;
     }
+
+    public Staffs(Long id, String firtName, String lastName, String email, String phone, int active,
+                  List<Staffs> staffsList, Stores stores, Staffs staffManagers, List<Orders> ordersList) {
+        this.id = id;
+        this.firtName = firtName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.active = active;
+        this.staffsList = staffsList;
+        this.stores = stores;
+        this.staffManagers = staffManagers;
+        this.ordersList = ordersList;
+    }
+
+    public Staffs() {
+    }
+
 }

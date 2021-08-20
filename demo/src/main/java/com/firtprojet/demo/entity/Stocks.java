@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Stocks {
 
@@ -25,4 +23,14 @@ public class Stocks {
     private Stores stores;
 
     private int quantity;
+
+    public Stocks() {
+    }
+
+    public Stocks(Long id, Product product, Stores stores, int quantity) {
+        this.id = id;
+        this.product = product;
+        this.stores = stores;
+        this.quantity = quantity;
+    }
 }

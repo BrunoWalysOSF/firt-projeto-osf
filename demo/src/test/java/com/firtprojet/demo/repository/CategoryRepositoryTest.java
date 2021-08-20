@@ -12,11 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.*;
 
 
 @DataJpaTest
 @RunWith(SpringRunner.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace = Replace.NONE)
 public class CategoryRepositoryTest {
 
     @Autowired

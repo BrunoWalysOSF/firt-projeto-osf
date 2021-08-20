@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class OrderItems {
     @Id
@@ -26,5 +24,16 @@ public class OrderItems {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    public OrderItems() {
+    }
+
+    public OrderItems(Long id, int quantity, double listPrice, double discount, Orders orders, Product product) {
+        this.id = id;
+        this.quantity = quantity;
+        this.listPrice = listPrice;
+        this.discount = discount;
+        this.orders = orders;
+        this.product = product;
+    }
 
 }

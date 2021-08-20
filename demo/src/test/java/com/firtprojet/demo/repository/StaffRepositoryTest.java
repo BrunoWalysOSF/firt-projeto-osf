@@ -12,10 +12,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.*;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace = Replace.NONE)
 public class StaffRepositoryTest {
     @Autowired
     private StaffRepository staffRepository;

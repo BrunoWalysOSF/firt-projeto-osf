@@ -10,8 +10,6 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Orders {
     @Id
@@ -37,5 +35,22 @@ public class Orders {
     @JsonBackReference
     @OneToMany(mappedBy = "orders")
     private List<OrderItems> orderItems;
+
+    public Orders() {
+    }
+
+    public Orders(Long id, int orderStatus, Date orderDate, Date requieredDate,
+                  Date shipedDate, Stores stores, Staffs staffs, Custumers custumers,
+                  List<OrderItems> orderItems) {
+        this.id = id;
+        this.orderStatus = orderStatus;
+        this.orderDate = orderDate;
+        this.requieredDate = requieredDate;
+        this.shipedDate = shipedDate;
+        this.stores = stores;
+        this.staffs = staffs;
+        this.custumers = custumers;
+        this.orderItems = orderItems;
+    }
 
 }

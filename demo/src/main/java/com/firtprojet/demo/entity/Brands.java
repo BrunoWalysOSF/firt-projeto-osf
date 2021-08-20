@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Brands {
 
@@ -23,4 +21,14 @@ public class Brands {
     @JsonBackReference
     @OneToMany(mappedBy = "brands")
     private List<Product> listProduct;
+
+    public Brands() {
+    }
+
+    public Brands(Long id, String name, List<Product> listProduct) {
+        this.id = id;
+        this.name = name;
+        this.listProduct = listProduct;
+    }
+
 }
