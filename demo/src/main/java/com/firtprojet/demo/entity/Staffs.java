@@ -38,4 +38,10 @@ public class Staffs {
     @OneToMany(mappedBy = "staffs")
     private List<Orders> ordersList;
 
+    public Staffs(String firtName, String lastName, String email, String phone) {
+        this.firtName = firtName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+    }
 }

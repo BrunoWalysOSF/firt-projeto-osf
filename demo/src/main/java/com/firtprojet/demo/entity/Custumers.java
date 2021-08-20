@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Custumers {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -29,6 +30,16 @@ public class Custumers {
     @OneToMany(mappedBy = "custumers")
     private List<Orders> orders;
 
-
-
+    public Custumers(String firtName, String lastName, String phone, String email, String street,
+                     String city, String state, String zipCode, List<Orders> orders) {
+        this.firtName = firtName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.email = email;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.orders = orders;
+    }
 }

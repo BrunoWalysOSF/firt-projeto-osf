@@ -22,8 +22,6 @@ public class StoresRepositoryTest {
     @Autowired
     private StoresRepository storesRepository;
 
-
-
     @Test
     public void save_PersisteStore_WhenSucessuful(){
         Stores stores = createStore();
