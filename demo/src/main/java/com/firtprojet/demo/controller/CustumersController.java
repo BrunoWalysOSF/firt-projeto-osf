@@ -25,7 +25,7 @@ public class CustumersController {
                 orElseThrow(()->new ResourceNotFound("Custumer not found : " + custumersId));
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public Custumers createCustumers(@RequestBody Custumers custumers){
         return this.custumersRepository.save(custumers);
     }
@@ -51,5 +51,4 @@ public class CustumersController {
         this.custumersRepository.delete(custumersDelet);
         return ResponseEntity.ok().build();
     }
-
 }

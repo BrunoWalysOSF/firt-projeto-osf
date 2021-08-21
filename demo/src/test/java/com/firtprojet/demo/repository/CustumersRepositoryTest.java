@@ -49,7 +49,7 @@ public class CustumersRepositoryTest {
     }
 
     public Custumers createCustumers(){
-        return new Custumers("Renata","Calvalcante","(85)98888-9999",
+        return new Custumers(null,"Renata","Calvalcante","(85)98888-9999",
                 "Sasas@sasa.com","fortaleza","sa","sas",null,null);
     }
 }
