@@ -15,9 +15,7 @@ public class StoresController {
     private StoresRepository storesRepository;
 
     @GetMapping
-    public List<Stores> findAllStores(){
-        return this.storesRepository.findAll();
-    }
+    public List<Stores> findAllStores(){ return this.storesRepository.findAll(); }
     @PostMapping
     public Stores createStores(@RequestBody Stores stores){
         return this.storesRepository.save(stores);

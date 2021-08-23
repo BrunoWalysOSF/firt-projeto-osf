@@ -2,7 +2,6 @@ package com.firtprojet.demo.controller;
 
 import com.firtprojet.demo.entity.Custumers;
 import com.firtprojet.demo.repository.CustumersRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +10,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.when;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = CustumersController.class)
 class CustumersControllerTest {
