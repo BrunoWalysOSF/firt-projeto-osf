@@ -1,19 +1,22 @@
 package com.firtprojet.demo.controller;
 
 import com.firtprojet.demo.entity.Staffs;
+import com.firtprojet.demo.entity.Stores;
 import com.firtprojet.demo.repository.StaffRepository;
+import com.firtprojet.demo.repository.StoresRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/staff")
 public class StaffController {
     @Autowired
     private StaffRepository staffRepository;
+    @Autowired
+    private StoresRepository storesRepository;
 
     @GetMapping
     public List<Staffs> findAllStaff(){
