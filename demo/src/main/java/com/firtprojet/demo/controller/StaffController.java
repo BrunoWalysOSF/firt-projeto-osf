@@ -1,7 +1,6 @@
 package com.firtprojet.demo.controller;
 
 import com.firtprojet.demo.entity.Staffs;
-import com.firtprojet.demo.entity.Stores;
 import com.firtprojet.demo.repository.StaffRepository;
 import com.firtprojet.demo.repository.StoresRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +42,9 @@ public class StaffController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Staffs> deleteStaffsResponseEntity(@PathVariable("id")Long staffId){
         Staffs staffAtual = this.staffRepository.findById(staffId).get();
+        staffAtual.setStaffManagers(null);
+        staffAtual.setStores(null);
+        staffAtual = this.staffRepository.save(staffAtual);
         this.staffRepository.delete(staffAtual);
         return ResponseEntity.ok().build();
     }

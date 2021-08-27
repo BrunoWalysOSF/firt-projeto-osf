@@ -4,6 +4,7 @@ import com.firtprojet.demo.entity.Stocks;
 import com.firtprojet.demo.repository.ProductRepository;
 import com.firtprojet.demo.repository.StoksRespository;
 import com.firtprojet.demo.repository.StoresRepository;
+import com.firtprojet.demo.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,6 @@ public class StocksController {
     private ProductRepository productRepository;
     @Autowired
     private StoresRepository storesRepository;
-
 
     @GetMapping
     public List<Stocks> findAllStocks(){

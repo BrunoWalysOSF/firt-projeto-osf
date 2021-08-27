@@ -16,4 +16,7 @@ public interface StoksRespository extends JpaRepository<Stocks,Long> {
 
     @Query(value = "select * from Stocks where product_id = ?1 and quantity >= ?2",nativeQuery = true)
     List<Stocks> findStoreByProductDisponible(Long productId,int quantity);
+
+    @Query(value = "select * from Stocks where product_id = ?1 and stores_id = ?2", nativeQuery = true)
+    Stocks findStockByProduct(Long productId,Long storeId);
 }

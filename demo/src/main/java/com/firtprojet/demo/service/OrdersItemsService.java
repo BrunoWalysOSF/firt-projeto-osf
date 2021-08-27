@@ -7,9 +7,10 @@ import com.firtprojet.demo.repository.StoksRespository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @NoArgsConstructor
 @Service
@@ -28,8 +29,8 @@ public class OrdersItemsService {
            throw new ResourceNotFound("no stock found for this product");
         return storeByProductDisponible;
     }
-
-    public OrderItems createOrder(Custumers custumers, Staffs staffs,Product product,int quantity){
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public OrderItems createOrderItem(Custumers custumers, Staffs staffs,Product product,int quantity){
         List<Stocks> productDisponibleByStore = this.findProductDisponibleByStore(product.getId(), quantity);
         Stocks stocksAtualizar = this.stoksRespository.findById(productDisponibleByStore.get(0).getId()).get();
         stocksAtualizar.setQuantity(stocksAtualizar.getQuantity()-quantity);
@@ -41,7 +42,6 @@ public class OrdersItemsService {
         orderItems.setProduct(product);
         orderItems.setQuantity(quantity);
         orderItems.setListPrice(product.getPrice()*quantity);
-
         return orderItemsRepository.save(orderItems);
     }
 
