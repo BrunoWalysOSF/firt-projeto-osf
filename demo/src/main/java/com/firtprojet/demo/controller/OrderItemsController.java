@@ -1,6 +1,7 @@
 package com.firtprojet.demo.controller;
 
 import com.firtprojet.demo.entity.*;
+import com.firtprojet.demo.exception.ResourceNotFound;
 import com.firtprojet.demo.repository.*;
 import com.firtprojet.demo.service.OrdersItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,23 @@ public class OrderItemsController {
     @Autowired
     private OrdersItemsService ordersItemsService;
     @GetMapping
+
     @ResponseBody
     public List<Stocks> findProductDisponibleByStore(@RequestParam("id") Long productId,
                                                      @RequestParam("quantity") int quantity) {
-        List<Stocks> productDisponibleByStore = this.ordersItemsService.findProductDisponibleByStore(productId, quantity);
+        List<Stocks> productDisponibleByStore =
+                this.ordersItemsService.findProductDisponibleByStore(productId, quantity);
+        if(productDisponibleByStore.isEmpty())
+             throw new ResourceNotFound("No stock available for order");
         return productDisponibleByStore;
     }
     @GetMapping("/items")
     public List<OrderItems> findByOrderItems(){
+
         return this.orderItemsRepository.findAll();
+    }
+    @GetMapping("/mostpopularproduct")
+    public Product mostPopularProduct(){
+        return ordersItemsService.mostPopularProduct();
     }
 }

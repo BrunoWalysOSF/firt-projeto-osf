@@ -70,6 +70,8 @@ public class ProductController {
 	@ResponseBody
 	public ResponseEntity<List<Product>> getProductByCategory(@RequestParam(name="id") Long ctegoryId) {
 		List<Product> productList = productRepository.findProductByCategory(ctegoryId);
+		if(productList.isEmpty())
+			throw new ResourceNotFound("not found products by this category");
 		return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
 	}
 

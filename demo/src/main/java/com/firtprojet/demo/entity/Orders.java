@@ -1,6 +1,7 @@
 package com.firtprojet.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,14 +23,17 @@ public class Orders {
 
     @ManyToOne
     @JoinColumn(name = "store_id")
+    @JsonManagedReference
     private Stores stores;
 
     @ManyToOne
     @JoinColumn(name = "staff_id")
+    @JsonManagedReference
     private Staffs staffs;
 
     @ManyToOne
     @JoinColumn(name = "custumers_id")
+    @JsonManagedReference
     private Custumers custumers;
 
     @JsonBackReference

@@ -1,6 +1,7 @@
 package com.firtprojet.demo.controller;
 
 import com.firtprojet.demo.entity.Stocks;
+import com.firtprojet.demo.exception.ResourceNotFound;
 import com.firtprojet.demo.repository.ProductRepository;
 import com.firtprojet.demo.repository.StoksRespository;
 import com.firtprojet.demo.repository.StoresRepository;
@@ -32,6 +33,8 @@ public class StocksController {
     @GetMapping("/{id}")
     public ResponseEntity<List<Stocks>> findAllStocksByStores(@PathVariable("id")Long storesId){
         List<Stocks> stockByStores = this.stoksRespository.findStockByStores(storesId);
+        if(stockByStores.isEmpty())
+            throw new ResourceNotFound("No stocks found for this store");
         return ResponseEntity.ok(stockByStores);
     }
 

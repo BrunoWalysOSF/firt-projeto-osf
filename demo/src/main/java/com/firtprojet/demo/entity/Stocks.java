@@ -1,5 +1,6 @@
 package com.firtprojet.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,10 +17,12 @@ public class Stocks {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @JsonManagedReference
     private Product product;
 
     @ManyToOne
     @JoinColumn(name = "stores_id")
+    @JsonManagedReference
     private Stores stores;
 
     private int quantity;

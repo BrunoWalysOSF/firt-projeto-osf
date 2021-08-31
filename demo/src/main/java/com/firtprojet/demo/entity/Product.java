@@ -1,6 +1,7 @@
 package com.firtprojet.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class Product {
 	@OneToMany(mappedBy = "product")
 	private List<Stocks> stocks;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "product")
 	private List<OrderItems> orderItems;
 

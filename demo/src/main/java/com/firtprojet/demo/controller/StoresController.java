@@ -1,6 +1,7 @@
 package com.firtprojet.demo.controller;
 
 import com.firtprojet.demo.entity.Stores;
+import com.firtprojet.demo.exception.ResourceNotFound;
 import com.firtprojet.demo.repository.StoresRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,8 @@ public class StoresController {
     }
     @PutMapping("/{id}")
     public Stores updateStores(@PathVariable("id")Long storesId,@RequestBody Stores storesUpdate){
-        Stores storesAtual = this.storesRepository.findById(storesId).get();
+        Stores storesAtual = this.storesRepository.findById(storesId).
+                orElseThrow(()->new ResourceNotFound("Not found Store : "+storesId));
         storesAtual.setStoreName(storesUpdate.getStoreName());
         storesAtual.setCity(storesUpdate.getCity());
         storesAtual.setEmail(storesUpdate.getEmail());

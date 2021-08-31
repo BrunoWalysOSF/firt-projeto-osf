@@ -1,6 +1,7 @@
 package com.firtprojet.demo.service;
 
 import com.firtprojet.demo.entity.*;
+import com.firtprojet.demo.exception.ResourceNotFound;
 import com.firtprojet.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +28,15 @@ public class OrdersService {
     @Autowired
     private StoksRespository stoksRespository;
 
+    @Autowired
+    private CustumersRepository custumersRepository;
     public OrdersService() {
     }
 
     public String checkStatus(Long orderId){
         String status =  null;
-        Orders orders = this.ordersRepository.findById(orderId).get();
+        Orders orders = this.ordersRepository.findById(orderId).
+                orElseThrow(()->new ResourceNotFound("Not found order :"+orderId));
         switch(orders.getOrderStatus()){
             case 1:
                 status = "Awaiting shipment";
@@ -59,10 +63,11 @@ public class OrdersService {
         orders.setOrderStatus(1);
         return this.ordersRepository.save(orders);
     }
-
+    /*Altera o status do pedido , caso pedido seja cancelado retona stocks para a loja */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void changeStatus(Long orderId, int status,Long staffId){
-        Orders ordersActual = this.ordersRepository.findById(orderId).get();
+        Orders ordersActual = this.ordersRepository.findById(orderId).
+                orElseThrow(()->new ResourceNotFound("Not found order :"+orderId));
         Stores stores = ordersActual.getStores();
         List<Staffs> staffByStore = this.staffRepository.findStaffByStore(stores.getId(), staffId);
         if(!staffByStore.isEmpty()){
@@ -81,4 +86,22 @@ public class OrdersService {
              this.ordersRepository.save(ordersActual);
         }
     }
+    /*Verificar e retorna o cliente com maior quantidade de pedidos*/
+    public Custumers custumersOrderQuantity(){
+        List<Custumers> custumersList = this.custumersRepository.findAll();
+        int quantityOrders = 0;
+        Custumers custumers = null;
+        for (int i=0;i<custumersList.size();i++) {
+            int cont=0;
+            for (Orders orders : custumersList.get(i).getOrders()) {
+                cont++;
+            }
+            if (quantityOrders <= cont){
+                quantityOrders = cont;
+                custumers = custumersList.get(i);
+            }
+        }
+        return custumers;
+    }
+
 }

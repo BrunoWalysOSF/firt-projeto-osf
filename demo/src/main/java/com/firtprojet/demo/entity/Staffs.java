@@ -1,6 +1,7 @@
 package com.firtprojet.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Staffs {
 
     @ManyToOne
     @JoinColumn(name = "manager_id")
+    @JsonManagedReference
     private Staffs staffManagers;
 
     @JsonBackReference
