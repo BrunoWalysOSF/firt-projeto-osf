@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -109,10 +110,15 @@ public class OrdersService {
     /*Fazer busca por intervalo de data*/
     public List<Orders> findByDateRange(LocalDateTime firtDate,LocalDateTime lastDate){
         List<Orders> ordersList = this.ordersRepository.findAll();
-        List<Orders> listOrderDate = null;
+        List<Orders> listOrderDate = new ArrayList<>();
+        int dateSomaFirt=firtDate.getDayOfYear()+firtDate.getYear();
+        int dateSomaLast=lastDate.getDayOfYear()+lastDate.getYear();
         for (Orders orders:ordersList) {
-            if ((orders.getOrderDate().isAfter(firtDate) && orders.getOrderDate().isBefore(lastDate))){
-              listOrderDate.add(orders);
+            if(!(orders.getOrderDate()==null)){
+                int orderDateSoma = orders.getOrderDate().getDayOfYear()+orders.getOrderDate().getYear();
+                if (orderDateSoma>=dateSomaFirt && orderDateSoma<=dateSomaLast){
+                    listOrderDate.add(orders);
+                }
             }
         }
         return listOrderDate;

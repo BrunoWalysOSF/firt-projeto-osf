@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,8 @@ public class OrderController {
 
     @GetMapping
     public List<Orders> findAllOrders(){
-        return this.ordersRepository.findAll();
+        return this.ordersService.findByDateRange(
+                LocalDateTime.of(2021,8,30,00,00),LocalDateTime.now());
     }
     @GetMapping("/custumers")
     public Custumers custumerOrderQuantity(){
