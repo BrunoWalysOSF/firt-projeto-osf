@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -61,6 +63,7 @@ public class OrdersService {
         orders.setStores(stores);
         orders.setStaffs(staffs);
         orders.setOrderStatus(1);
+        orders.setOrderDate(LocalDateTime.now());
         return this.ordersRepository.save(orders);
     }
     /*Altera o status do pedido , caso pedido seja cancelado retona stocks para a loja */
@@ -103,5 +106,15 @@ public class OrdersService {
         }
         return custumers;
     }
-
+    /*Fazer busca por intervalo de data*/
+    public List<Orders> findByDateRange(LocalDateTime firtDate,LocalDateTime lastDate){
+        List<Orders> ordersList = this.ordersRepository.findAll();
+        List<Orders> listOrderDate = null;
+        for (Orders orders:ordersList) {
+            if ((orders.getOrderDate().isAfter(firtDate) && orders.getOrderDate().isBefore(lastDate))){
+              listOrderDate.add(orders);
+            }
+        }
+        return listOrderDate;
+    }
 }

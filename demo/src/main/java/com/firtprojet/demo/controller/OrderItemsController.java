@@ -5,6 +5,9 @@ import com.firtprojet.demo.exception.ResourceNotFound;
 import com.firtprojet.demo.repository.*;
 import com.firtprojet.demo.service.OrdersItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +21,17 @@ public class OrderItemsController {
     private StoksRespository stoksRespository;
     @Autowired
     private OrdersItemsService ordersItemsService;
-    @GetMapping
+    @Autowired
+    CustumersRepository custumersRepository;
+    @Autowired
+    StaffRepository staffRepository;
+    @Autowired
+    ProductRepository productRepository;
 
+    @GetMapping
+    public ResponseEntity<?> findAllOrdersItems(Pageable pageable){
+        return new ResponseEntity<>(this.orderItemsRepository.findAll(pageable), HttpStatus.OK);
+    }
     @ResponseBody
     public List<Stocks> findProductDisponibleByStore(@RequestParam("id") Long productId,
                                                      @RequestParam("quantity") int quantity) {

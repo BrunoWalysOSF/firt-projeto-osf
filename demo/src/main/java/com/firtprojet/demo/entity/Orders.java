@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +19,9 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int orderStatus;
-    private Date orderDate;
-    private Date requieredDate;
-    private Date shipedDate;
+    private LocalDateTime orderDate;
+    private LocalDateTime requieredDate;
+    private LocalDateTime shipedDate;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
@@ -43,8 +45,8 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(Long id, int orderStatus, Date orderDate, Date requieredDate,
-                  Date shipedDate, Stores stores, Staffs staffs, Custumers custumers,
+    public Orders(Long id, int orderStatus, LocalDateTime orderDate, LocalDateTime requieredDate,
+                  LocalDateTime shipedDate, Stores stores, Staffs staffs, Custumers custumers,
                   List<OrderItems> orderItems) {
         this.id = id;
         this.orderStatus = orderStatus;

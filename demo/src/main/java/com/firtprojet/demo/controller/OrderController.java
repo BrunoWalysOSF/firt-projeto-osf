@@ -21,10 +21,9 @@ public class OrderController {
     @Autowired
     private OrdersRepository ordersRepository;
 
-
     @GetMapping
     public List<Orders> findAllOrders(){
-    return this.ordersRepository.findAll();
+        return this.ordersRepository.findAll();
     }
     @GetMapping("/custumers")
     public Custumers custumerOrderQuantity(){
@@ -34,4 +33,5 @@ public class OrderController {
     public List<Orders> findOrdersByCustumers(@PathVariable("id")Long custumerId){
         return this.ordersRepository.findOrdersByCustuers(custumerId);
     }
+
 }

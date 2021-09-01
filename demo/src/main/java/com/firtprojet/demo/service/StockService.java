@@ -8,6 +8,7 @@ import com.firtprojet.demo.repository.BrandsRepository;
 import com.firtprojet.demo.repository.StaffRepository;
 import com.firtprojet.demo.repository.StoksRespository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,7 @@ public class StockService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void changeStock(Long staffId , Long storeId, Long productId,int quantity){
         Staffs staffs = this.staffRepository.findById(staffId).
-                orElseThrow(()->new ResourceNotFound("Not foind Staff : "+staffId));
+                orElseThrow(()->new ResourceNotFound("Not found Staff : "+staffId));
         Long storeStaffId = staffs.getStores().getId();
         if(!staffs.getStaffsList().isEmpty() && storeStaffId.equals(storeId)){
             Stocks stockByProduct = this.stoksRespository.findStockByProduct(productId,storeId );
@@ -55,7 +56,7 @@ public class StockService {
                 }
             }
             if(bigQuantity<=quantity){
-                bigQuantity=quantity;
+                bigQuantity = quantity;
                 brandsMost = brands;
             }
         }

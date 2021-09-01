@@ -7,6 +7,9 @@ import com.firtprojet.demo.repository.StoksRespository;
 import com.firtprojet.demo.repository.StoresRepository;
 import com.firtprojet.demo.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,20 +25,23 @@ public class StocksController {
     @Autowired
     private StoksRespository stoksRespository;
     @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private StoresRepository storesRepository;
+    private StockService stockService;
 
     @GetMapping
-    public List<Stocks> findAllStocks(){
-        return this.stoksRespository.findAll();
+    public ResponseEntity<?> findAllStocks(Pageable pageable){
+        return new ResponseEntity<>(this.stoksRespository.findAll(pageable),HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<List<Stocks>> findAllStocksByStores(@PathVariable("id")Long storesId){
+    public ResponseEntity<?> findAllStocksByStores(@PathVariable("id")Long storesId){
         List<Stocks> stockByStores = this.stoksRespository.findStockByStores(storesId);
         if(stockByStores.isEmpty())
             throw new ResourceNotFound("No stocks found for this store");
-        return ResponseEntity.ok(stockByStores);
+        return new ResponseEntity<>(stockByStores,HttpStatus.OK);
+    }
+    @GetMapping("/categorymost")
+    public ResponseEntity<?> findBrandMostProduct(){
+        return new ResponseEntity<>(this.stockService.brandsMostProduct(),HttpStatus.OK);
     }
 
 }
